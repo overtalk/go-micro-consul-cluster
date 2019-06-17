@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package hotel;
+
+import "github.com/qinhan-shu/go-micro-consul-cluster/srv/profile/proto/profile.proto";
+import "github.com/qinhan-shu/go-micro-consul-cluster/srv/rate/proto/rate.proto";
+
+service Hotel {
+    rpc Rates (Reqeust) returns (Response) {
+    };
+}
+
+message Reqeust {
+    string inDate = 1;
+    string outDate = 2;
+}
+
+message Response {
+    repeated profile.Hotel hotels = 1;
+    repeated rate.RatePlan ratePlans = 2;
+}
