@@ -73,6 +73,18 @@ services:
       - profile
       - rate
 
+  hello:
+    build: ./api/hello
+    networks:
+      - consul-cluster
+    command: --registry=consul --registry_address=consul-server-bootstrap:8500
+    links:
+      - consul-server-bootstrap
+      - auth
+      - geo
+      - profile
+      - rate
+
   micro:
     networks:
       - consul-cluster
@@ -81,6 +93,7 @@ services:
     links:
       - consul-server-bootstrap
       - hotel
+      - hello
     ports:
       - "8080:8080"
 

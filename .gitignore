@@ -1,5 +1,6 @@
 .idea/*
 api/hotel/hotel
+api/hello/hello
 srv/auth/auth
 srv/geo/geo
 srv/profile/profile
