@@ -4,11 +4,11 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/micro/go-micro/metadata"
-	"golang.org/x/net/trace"
 	"github.com/kataras/iris/core/errors"
 	"github.com/labstack/gommon/log"
 	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/metadata"
+	"golang.org/x/net/trace"
 
 	"github.com/qinhan-shu/go-micro-consul-cluster/data"
 	"github.com/qinhan-shu/go-micro-consul-cluster/srv/auth/proto"

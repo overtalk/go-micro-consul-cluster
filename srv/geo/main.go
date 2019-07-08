@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/micro/go-micro/metadata"
-	"golang.org/x/net/trace"
 	"github.com/hailocab/go-geoindex"
 	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/metadata"
+	"golang.org/x/net/trace"
 
-	"github.com/qinhan-shu/go-micro-consul-cluster/srv/geo/proto"
 	"github.com/qinhan-shu/go-micro-consul-cluster/data"
+	"github.com/qinhan-shu/go-micro-consul-cluster/srv/geo/proto"
 )
 
 const (
@@ -19,10 +19,11 @@ const (
 	maxSearchResults = 5
 )
 
+// 宾馆的具体位置信息
 type point struct {
 	Pid  string  `json:"hotelId"`
-	Plat float64 `json:"lat"`
-	Plon float64 `json:"lon"`
+	Plat float64 `json:"lat"` // 纬度
+	Plon float64 `json:"lon"` // 经度
 }
 
 func (p *point) Lat() float64 { return p.Plat }
@@ -57,6 +58,7 @@ func (s *Geo) NearBy(ctx context.Context, req *geo.Request, rsp *geo.Result) err
 	return nil
 }
 
+// 首先注册所有的可用宾馆
 func newGeoIndex(path string) *geoindex.ClusteringIndex {
 	file := data.MustAsset(path)
 
@@ -71,7 +73,6 @@ func newGeoIndex(path string) *geoindex.ClusteringIndex {
 	}
 	return index
 }
-
 
 func main() {
 	service := micro.NewService(

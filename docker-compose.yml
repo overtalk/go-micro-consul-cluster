@@ -33,49 +33,54 @@ services:
     build: ./srv/auth
     networks:
       - consul-cluster
-    command: --registry_address=consul-server-bootstrap:8500
+    command:  --registry=consul --registry_address=consul-server-bootstrap:8500
     links:
       - consul-server-bootstrap
+      
   geo:
     build: ./srv/geo
     networks:
       - consul-cluster
-    command: --registry_address=consul-server-bootstrap:8500
+    command: --registry=consul --registry_address=consul-server-bootstrap:8500
     links:
       - consul-server-bootstrap
+
   profile:
     build: ./srv/profile
     networks:
       - consul-cluster
-    command: --registry_address=consul-server-bootstrap:8500
+    command: --registry=consul --registry_address=consul-server-bootstrap:8500
     links:
       - consul-server-bootstrap
+
   rate:
     build: ./srv/rate
     networks:
       - consul-cluster
-    command: --registry_address=consul-server-bootstrap:8500
+    command: --registry=consul --registry_address=consul-server-bootstrap:8500
     links:
       - consul-server-bootstrap
-  api:
+
+  hotel:
     build: ./api/hotel
     networks:
       - consul-cluster
-    command: --registry_address=consul-server-bootstrap:8500
+    command: --registry=consul --registry_address=consul-server-bootstrap:8500
     links:
       - consul-server-bootstrap
       - auth
       - geo
       - profile
       - rate
+
   micro:
     networks:
       - consul-cluster
-    command: --registry_address=consul-server-bootstrap:8500  api --handler=rpc
+    command: --registry=consul --registry_address=consul-server-bootstrap:8500  api --handler=rpc
     image: microhq/micro:latest
     links:
       - consul-server-bootstrap
-      - api
+      - hotel
     ports:
       - "8080:8080"
 

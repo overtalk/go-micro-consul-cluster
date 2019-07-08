@@ -4,15 +4,14 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/micro/go-micro/metadata"
-	"golang.org/x/net/trace"
 	"github.com/labstack/gommon/log"
 	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/metadata"
+	"golang.org/x/net/trace"
 
 	"github.com/qinhan-shu/go-micro-consul-cluster/data"
 	"github.com/qinhan-shu/go-micro-consul-cluster/srv/profile/proto"
 )
-
 
 type Profile struct {
 	hotels map[string]*profile.Hotel
@@ -31,6 +30,7 @@ func (s *Profile) GetProfiles(ctx context.Context, req *profile.Request, rsp *pr
 	return nil
 }
 
+// 拿到所有的宾馆具体信息
 func loadProfiles(path string) map[string]*profile.Hotel {
 	file := data.MustAsset(path)
 
